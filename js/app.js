@@ -32,7 +32,7 @@ $(function () {
   function refresh(qs) {
     $.ajax({
       type: "GET",
-      url: "//monitor.alinger.cn:9999/ema_info",
+      url: "//monitor.alinger.cn/ema_info",
       success: function (result) {
         if (result.data) {
           renderHtml(result.data);
