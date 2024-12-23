@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EMA监控</title>
+  <link href="./css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    .total-info {
+      display: flex;
+      justify-content: space-around;
+      line-height: 30px;
+    }
+
+    .profit-box {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      padding: 10px 15px;
+    }
+
+    #myTotalCost span {
+      padding: 0 10px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    th {
+      font-size: 13px;
+    }
+
+    #priceList {
+      font-size: 13px;
+    }
+
+    .up {
+      color: green;
+      font-weight: 600;
+    }
+
+    .down {
+      color: brown;
+      /* font-weight: 600; */
+    }
+
+    #myTotalProfit span {
+      font-size: 16px;
+      font-weight: 600;
+      color: green;
+    }
+
+    #myTotalProfit span.lose {
+      color: brown;
+    }
+
+    .caption-top .name {
+      font-weight: 600;
+      color: blue;
+    }
+
+    .price {
+      font-weight: 600;
+    }
+
+    .minPrice {
+      color: brown
+    }
+
+    .maxPrice {
+      color: green
+    }
+
+    /* 自定义样式 */
+    .fixed-table {
+      overflow-x: auto;
+      height: calc(100vh - 80px);
+      /* 根据需要调整最大高度 */
+    }
+
+    .fixed-table .table-fixed-header {
+      position: sticky;
+      top: 0;
+      background-color: white;
+      /* 根据需要调整背景颜色 */
+      z-index: 10;
+    }
+
+    .fixed-table .table-fixed-header th {
+      background-color: white;
+      /* 根据需要调整背景颜色 */
+    }
+
+    .fixed-table .table-scrollable-body {
+      overflow-y: auto;
+    }
+
+    .sort-button.actived{
+      background-color: blueviolet;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+  <script type="text/html" id="emaTemp">
+        <tr class="{{coinId}}" interval="{{interval}}" isDuotou="{{isDuotouFlag}}">
+          <td class="name">{{name}}</td>
+          <td class="last1hPrice">{{last1hPrice}}</td>
+          <td class="last4hPrice">{{last4hPrice}}</td>
+          <td class="last24hPrice">{{last24hPrice}}</td>
+          <td class="maxPrice">{{maxPrice}}</td>
+          <td class="interval">{{interval}}</td>
+          <td class="atr">{{atr}}</td>
+          <td class="isDuotou">{{isDuotou}}</td>
+          <td class="isEma21Gold">{{isEma21Gold}}</td>
+          <td class="isEma55Gold">{{isEma55Gold}}</td>
+          <td class="isEma100Gold">{{isEma100Gold}}</td>
+          <td class="isEma21Died">{{isEma21Died}}</td>
+        </tr>
+    </script>
+  <div class="button-group">
+    <button type="button" action="15m" class="btn btn-primary mb-2 filter-button">只看15m</button>
+    <button type="button" action="1h" class="btn btn-primary mb-2 filter-button">只看1h</button>
+    <button type="button" action="4h" class="btn btn-primary mb-2 filter-button">只看4h</button>
+    <button type="button" action="1d" class="btn btn-primary mb-2 filter-button">只看1d</button>
+    <button type="button" action="allDuotou" class="btn btn-primary mb-2 filter-button">全多头</button>
+    <button type="button" action="all" class="btn btn-primary mb-2 filter-button">全部</button>
+    <button type="button" action="1h" style="margin-left:100px"
+      class="btn btn-default actived ml-3 mb-2 sort-button">最近1h涨幅降序</button>
+    <button type="button" action="4h" class="btn btn-default mb-2 sort-button">最近4h涨幅降序</button>
+    <button type="button" action="24h" class="btn btn-default mb-2 sort-button">最近24h涨幅降序</button>
+  </div>
+  <!-- 固定头部的表格 -->
+  <div class="fixed-table">
+    <table class="table">
+      <thead class="table-fixed-header">
+        <tr>
+          <th scope="col" width="15%">名称</th>
+          <th scope="col">1h</th>
+          <th scope="col">4h</th>
+          <th scope="col">24h</th>
+          <th scope="col">24h最高价</th>
+          <th scope="col">时间维度</th>
+          <th scope="col">atr</th>
+          <th scope="col">多头排列</th>
+          <th scope="col">21金叉</th>
+          <th scope="col">55金叉</th>
+          <th scope="col">100金叉</th>
+          <th scope="col">21死叉</th>
+        </tr>
+      </thead>
+      <tbody class="table-scrollable-body" id="emaList">
+
+      </tbody>
+    </table>
+  </div>
+
+  <script src="./js/bootstrap.bundle.min.js" type="text/javascript"></script>
+  <script src="./js/jquery.min.js">
+  </script>
+  <script src="./js/app.js"></script>
+</body>
+
+</html>
